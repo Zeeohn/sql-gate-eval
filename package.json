@@ -1,0 +1,20 @@
+{
+  "name": "sql-gate-eval",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Measures a destructive-SQL confirmation gate against ground truth from real Postgres execution",
+  "scripts": {
+    "eval": "tsx src/run.ts",
+    "test": "tsx --test test/*.test.ts"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.3.16"
+  }
+}

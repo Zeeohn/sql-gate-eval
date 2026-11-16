@@ -1,0 +1,1819 @@
+[
+  {
+    "id": "plain-01",
+    "group": "plain",
+    "sql": "delete from orders where status = 'paid';",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 2
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-02",
+    "group": "plain",
+    "sql": "delete from orders;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-03",
+    "group": "plain",
+    "sql": "truncate orders;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-04",
+    "group": "plain",
+    "sql": "drop table sessions;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "sessions",
+          "count": 3
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table",
+          "identity": "public.sessions",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "toast table",
+          "identity": "pg_toast.pg_toast_16415",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "pg_toast.pg_toast_16415_index",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "sessions_pkey on public.sessions",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "public.sessions_pkey",
+          "data": false
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-05",
+    "group": "plain",
+    "sql": "drop table if exists orders cascade;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table",
+          "identity": "public.orders",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "toast table",
+          "identity": "pg_toast.pg_toast_16391",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "pg_toast.pg_toast_16391_index",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "orders_pkey on public.orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "public.orders_pkey",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "orders_profile_id_fkey on public.orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_a_16399\" on public.profiles",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_a_16400\" on public.profiles",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_c_16401\" on public.orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_c_16402\" on public.orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "view",
+          "identity": "public.open_orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "rule",
+          "identity": "\"_RETURN\" on public.open_orders",
+          "data": false
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-06",
+    "group": "plain",
+    "sql": "alter table profiles drop column whereabouts;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table column",
+          "identity": "public.profiles.whereabouts",
+          "data": true
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-07",
+    "group": "plain",
+    "sql": "alter table profiles drop whereabouts;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table column",
+          "identity": "public.profiles.whereabouts",
+          "data": true
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-08",
+    "group": "plain",
+    "sql": "alter table if exists only public.profiles drop column if exists whereabouts cascade;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table column",
+          "identity": "public.profiles.whereabouts",
+          "data": true
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-09",
+    "group": "plain",
+    "sql": "update orders set status = 'void';",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-10",
+    "group": "plain",
+    "sql": "update public.orders as o set total = 0;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-11",
+    "group": "plain",
+    "sql": "DELETE FROM \"orders\" WHERE total > 15;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 3
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-12",
+    "group": "plain",
+    "sql": "select 1; delete from orders where id = 1;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 1
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "plain-13",
+    "group": "plain",
+    "sql": "drop schema public cascade;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "profiles",
+          "count": 4
+        },
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        },
+        {
+          "kind": "rows-removed",
+          "table": "cities",
+          "count": 3
+        },
+        {
+          "kind": "rows-removed",
+          "table": "capitals",
+          "count": 2
+        },
+        {
+          "kind": "rows-removed",
+          "table": "sessions",
+          "count": 3
+        },
+        {
+          "kind": "dropped",
+          "objectType": "schema",
+          "identity": "public",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table",
+          "identity": "public.profiles",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "toast table",
+          "identity": "pg_toast.pg_toast_16384",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "pg_toast.pg_toast_16384_index",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "profiles_pkey on public.profiles",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "public.profiles_pkey",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table",
+          "identity": "public.orders",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "toast table",
+          "identity": "pg_toast.pg_toast_16391",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "pg_toast.pg_toast_16391_index",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "orders_pkey on public.orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "public.orders_pkey",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "orders_profile_id_fkey on public.orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_a_16399\" on public.profiles",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_a_16400\" on public.profiles",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_c_16401\" on public.orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_c_16402\" on public.orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table",
+          "identity": "public.cities",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "toast table",
+          "identity": "pg_toast.pg_toast_16403",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "pg_toast.pg_toast_16403_index",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "cities_pkey on public.cities",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "public.cities_pkey",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table",
+          "identity": "public.capitals",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "toast table",
+          "identity": "pg_toast.pg_toast_16410",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "pg_toast.pg_toast_16410_index",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table",
+          "identity": "public.sessions",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "toast table",
+          "identity": "pg_toast.pg_toast_16415",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "pg_toast.pg_toast_16415_index",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "sessions_pkey on public.sessions",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "public.sessions_pkey",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "view",
+          "identity": "public.open_orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "rule",
+          "identity": "\"_RETURN\" on public.open_orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "function",
+          "identity": "public.purge_paid()",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "procedure",
+          "identity": "public.reset_names()",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "function",
+          "identity": "public.run_sql(pg_catalog.text)",
+          "data": false
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "cte-01",
+    "group": "cte",
+    "sql": "with d as (delete from orders where status = 'open' returning *) select count(*) from d;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 2
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "cte-02",
+    "group": "cte",
+    "sql": "with d as (delete from orders returning id) select * from d;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "cte-03",
+    "group": "cte",
+    "sql": "with u as (update orders set total = 0 returning id) select count(*) from u;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "cte-04",
+    "group": "cte",
+    "sql": "with x as (select 1) delete from orders;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "cte-05",
+    "group": "cte",
+    "sql": "with recent as (select id from orders where total > 15) delete from orders where id in (select id from recent);",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 3
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "cte-06",
+    "group": "cte",
+    "sql": "with moved as (delete from orders where status = 'paid' returning *) insert into orders select id + 100, profile_id, total, 'archived' from moved;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 2
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "merge-01",
+    "group": "merge",
+    "sql": "merge into orders o using (select id from orders) s on o.id = s.id when matched then delete;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "merge-02",
+    "group": "merge",
+    "sql": "merge into orders o using orders s on o.id = s.id when matched then update set total = 0;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "merge-03",
+    "group": "merge",
+    "sql": "merge into orders o using (select 1 as id) s on o.id = s.id when matched then delete when not matched then do nothing;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 1
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "inheritance-01",
+    "group": "inheritance",
+    "sql": "update cities* set population = 0;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "cities",
+          "count": 3
+        },
+        {
+          "kind": "every-row-changed",
+          "table": "capitals",
+          "count": 2
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "inheritance-02",
+    "group": "inheritance",
+    "sql": "update only cities set population = 0;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "cities",
+          "count": 3
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "inheritance-03",
+    "group": "inheritance",
+    "sql": "delete from cities*;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "cities",
+          "count": 3
+        },
+        {
+          "kind": "rows-removed",
+          "table": "capitals",
+          "count": 2
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "inheritance-04",
+    "group": "inheritance",
+    "sql": "delete from only capitals where state = 'fct';",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "capitals",
+          "count": 1
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "inheritance-05",
+    "group": "inheritance",
+    "sql": "update capitals set population = population + 1;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "capitals",
+          "count": 2
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "identifiers-01",
+    "group": "identifiers",
+    "sql": "update profiles set whereabouts = 'remote';",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "identifiers-02",
+    "group": "identifiers",
+    "sql": "update profiles set \"where\" = 'z';",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "identifiers-03",
+    "group": "identifiers",
+    "sql": "update profiles p set name = upper(p.name);",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "identifiers-04",
+    "group": "identifiers",
+    "sql": "update \"profiles\" set name = 'n';",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "identifiers-05",
+    "group": "identifiers",
+    "sql": "update profiles set name = 'n' -- where id = 1\n    ;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "identifiers-06",
+    "group": "identifiers",
+    "sql": "update profiles set name = 'where ';",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "identifiers-07",
+    "group": "identifiers",
+    "sql": "update profiles set name = 'n' /* where id = 1 */;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "identifiers-08",
+    "group": "identifiers",
+    "sql": "update profiles set name = $$x$$;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "indirect-01",
+    "group": "indirect",
+    "sql": "do $$ begin delete from orders; end $$;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "indirect-02",
+    "group": "indirect",
+    "sql": "do $$ begin execute 'delete from orders'; end $$;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "indirect-03",
+    "group": "indirect",
+    "sql": "do $$ begin execute format('drop table %I', 'sessions'); end $$;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "sessions",
+          "count": 3
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table",
+          "identity": "public.sessions",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "toast table",
+          "identity": "pg_toast.pg_toast_16415",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "pg_toast.pg_toast_16415_index",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "sessions_pkey on public.sessions",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "public.sessions_pkey",
+          "data": false
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "indirect-04",
+    "group": "indirect",
+    "sql": "do $$ begin execute 'tru' || 'ncate orders'; end $$;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "indirect-05",
+    "group": "indirect",
+    "sql": "do $$ declare t text := 'sessions'; begin execute 'drop table ' || t; end $$;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "sessions",
+          "count": 3
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table",
+          "identity": "public.sessions",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "toast table",
+          "identity": "pg_toast.pg_toast_16415",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "pg_toast.pg_toast_16415_index",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "sessions_pkey on public.sessions",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "public.sessions_pkey",
+          "data": false
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "indirect-06",
+    "group": "indirect",
+    "sql": "prepare wipe as delete from orders; execute wipe;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "indirect-07",
+    "group": "indirect",
+    "sql": "select purge_paid();",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 2
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "indirect-08",
+    "group": "indirect",
+    "sql": "call reset_names();",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "indirect-09",
+    "group": "indirect",
+    "sql": "select run_sql('delete from orders');",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "indirect-10",
+    "group": "indirect",
+    "sql": "select run_sql(format('drop table %I', 'sessions'));",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "sessions",
+          "count": 3
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table",
+          "identity": "public.sessions",
+          "data": true
+        },
+        {
+          "kind": "dropped",
+          "objectType": "toast table",
+          "identity": "pg_toast.pg_toast_16415",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "pg_toast.pg_toast_16415_index",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "sessions_pkey on public.sessions",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "public.sessions_pkey",
+          "data": false
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": true
+    },
+    "gate": false
+  },
+  {
+    "id": "indirect-11",
+    "group": "indirect",
+    "sql": "create function f() returns void language sql as 'delete from orders'; select f();",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "indirect-12",
+    "group": "indirect",
+    "sql": "explain analyze delete from orders;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "indirect-13",
+    "group": "indirect",
+    "sql": "explain (analyze) update orders set total = 0;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "orders",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "indirect-14",
+    "group": "indirect",
+    "sql": "explain (analyze true, buffers) delete from orders where id = 1;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 1
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "lossy-ddl-01",
+    "group": "lossy-ddl",
+    "sql": "alter table profiles alter column name type int using null;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "lossy-ddl-02",
+    "group": "lossy-ddl",
+    "sql": "alter table sessions alter column token type int using 0;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "sessions",
+          "count": 3
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "lossy-ddl-03",
+    "group": "lossy-ddl",
+    "sql": "delete from profiles where id = 1;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "rows-removed",
+          "table": "profiles",
+          "count": 1
+        },
+        {
+          "kind": "rows-removed",
+          "table": "orders",
+          "count": 2
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": false
+    },
+    "gate": true
+  },
+  {
+    "id": "lossy-ddl-04",
+    "group": "lossy-ddl",
+    "sql": "alter table profiles rename column name to n; alter table profiles drop column n;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "every-row-changed",
+          "table": "profiles",
+          "count": 4
+        },
+        {
+          "kind": "dropped",
+          "objectType": "table column",
+          "identity": "public.profiles.n",
+          "data": true
+        }
+      ],
+      "dataLoss": true,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "schema-drop-01",
+    "group": "schema-drop",
+    "sql": "drop view open_orders;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "dropped",
+          "objectType": "view",
+          "identity": "public.open_orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "rule",
+          "identity": "\"_RETURN\" on public.open_orders",
+          "data": false
+        }
+      ],
+      "dataLoss": false,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "schema-drop-02",
+    "group": "schema-drop",
+    "sql": "drop function purge_paid();",
+    "truth": {
+      "effects": [
+        {
+          "kind": "dropped",
+          "objectType": "function",
+          "identity": "public.purge_paid()",
+          "data": false
+        }
+      ],
+      "dataLoss": false,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "schema-drop-03",
+    "group": "schema-drop",
+    "sql": "alter table orders drop constraint orders_profile_id_fkey;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "dropped",
+          "objectType": "table constraint",
+          "identity": "orders_profile_id_fkey on public.orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_a_16399\" on public.profiles",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_a_16400\" on public.profiles",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_c_16401\" on public.orders",
+          "data": false
+        },
+        {
+          "kind": "dropped",
+          "objectType": "trigger",
+          "identity": "\"RI_ConstraintTrigger_c_16402\" on public.orders",
+          "data": false
+        }
+      ],
+      "dataLoss": false,
+      "anyDrop": true
+    },
+    "gate": false
+  },
+  {
+    "id": "schema-drop-04",
+    "group": "schema-drop",
+    "sql": "create index o_idx on orders(status); drop index o_idx;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "dropped",
+          "objectType": "index",
+          "identity": "public.o_idx",
+          "data": false
+        }
+      ],
+      "dataLoss": false,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "schema-drop-05",
+    "group": "schema-drop",
+    "sql": "drop procedure reset_names;",
+    "truth": {
+      "effects": [
+        {
+          "kind": "dropped",
+          "objectType": "procedure",
+          "identity": "public.reset_names()",
+          "data": false
+        }
+      ],
+      "dataLoss": false,
+      "anyDrop": true
+    },
+    "gate": true
+  },
+  {
+    "id": "safe-01",
+    "group": "safe",
+    "sql": "select * from orders;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-02",
+    "group": "safe",
+    "sql": "select 'drop table orders' as hint;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-03",
+    "group": "safe",
+    "sql": "-- drop table orders\n    select 1;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-04",
+    "group": "safe",
+    "sql": "select 1 /* delete from orders */;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-05",
+    "group": "safe",
+    "sql": "insert into orders values (9, 1, 5, 'open');",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-06",
+    "group": "safe",
+    "sql": "update orders set status = 'paid' where id = 2;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-07",
+    "group": "safe",
+    "sql": "update profiles set name = 'ada l' where id = 1;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-08",
+    "group": "safe",
+    "sql": "update orders set total = total + 1 where status = 'open';",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-09",
+    "group": "safe",
+    "sql": "create table notes (id int, body text);",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-10",
+    "group": "safe",
+    "sql": "alter table profiles add column bio text;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-11",
+    "group": "safe",
+    "sql": "create index on orders (status);",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-12",
+    "group": "safe",
+    "sql": "comment on table orders is 'delete me later';",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-13",
+    "group": "safe",
+    "sql": "create policy \"owners can delete\" on orders for delete using (true);",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-14",
+    "group": "safe",
+    "sql": "explain delete from orders;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-15",
+    "group": "safe",
+    "sql": "explain (analyze false) delete from orders;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-16",
+    "group": "safe",
+    "sql": "explain (costs off) update orders set total = 0;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-17",
+    "group": "safe",
+    "sql": "select * from orders where status = 'drop';",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-18",
+    "group": "safe",
+    "sql": "select deleted_at from profiles;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-19",
+    "group": "safe",
+    "sql": "create table truncate_log (id int);",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-20",
+    "group": "safe",
+    "sql": "grant select on orders to public;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-21",
+    "group": "safe",
+    "sql": "select count(*) from cities*;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-22",
+    "group": "safe",
+    "sql": "with o as (select * from orders) select * from o;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-23",
+    "group": "safe",
+    "sql": "do $$ begin raise notice 'delete nothing'; end $$;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-24",
+    "group": "safe",
+    "sql": "select run_sql('select 1');",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-25",
+    "group": "safe",
+    "sql": "create function g() returns int language sql as 'select 1'; select g();",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-26",
+    "group": "safe",
+    "sql": "alter table orders add constraint total_nonneg check (total >= 0);",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-27",
+    "group": "safe",
+    "sql": "merge into orders o using (select 99 as id) s on o.id = s.id when not matched then insert values (99, 1, 1, 'open');",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-28",
+    "group": "safe",
+    "sql": "update only capitals set population = 1 where state = 'fct';",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-29",
+    "group": "safe",
+    "sql": "set statement_timeout = '5s';",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-30",
+    "group": "safe",
+    "sql": "vacuum orders;",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  },
+  {
+    "id": "safe-31",
+    "group": "safe",
+    "sql": "update orders set status = 'void' from profiles where profiles.id = orders.profile_id and profiles.name = 'ada';",
+    "truth": {
+      "effects": [],
+      "dataLoss": false,
+      "anyDrop": false
+    },
+    "gate": false
+  }
+]
